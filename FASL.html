@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASL35</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #003c6c 0%, #005a9c 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #003c6c;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav li {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+        
+        nav a:hover,
+        nav a.active {
+            background: rgba(253, 199, 0, 0.1);
+            border-bottom-color: #fdc700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        h2 {
+            color: #003c6c;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #fdc700;
+        }
+        
+        h3 {
+            color: #003c6c;
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,60,108,0.8), rgba(0,60,108,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f0f0f0" width="1200" height="400"/><path fill="%23e0e0e0" d="M0 300L50 280C100 260 200 220 300 200C400 180 500 180 600 200C700 220 800 260 900 280C1000 300 1100 300 1150 300L1200 300L1200 400L1150 400C1100 400 1000 400 900 400C800 400 700 400 600 400C500 400 400 400 300 400C200 400 100 400 50 400L0 400Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            border: none;
+            color: white;
+            padding: 0;
+        }
+        
+        .hero .date-location {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+        
+        /* Invited Speakers Styles */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .speaker-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .speaker-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .speaker-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: #e8f4f8;
+            border: 3px solid #fdc700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #003c6c;
+            font-weight: bold;
+        }
+        
+        .speaker-card h3 {
+            color: #003c6c;
+            margin-top: 0;
+            margin-bottom: 0.3rem;
+            font-size: 1.3rem;
+        }
+        
+        .speaker-card h3 a {
+            color: #003c6c;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .speaker-card h3 a:hover {
+            color: #003c6c;
+            border-bottom-color: #fdc700;
+        }
+        
+        .speaker-affiliation {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Program Table Styles */
+        .program-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .program-table th {
+            background: #003c6c;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .program-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .program-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .time-col {
+            width: 120px;
+            font-weight: 600;
+            color: #003c6c;
+        }
+        
+        .program-table a {
+            color: #003c6c;
+            text-decoration: none;
+            border-bottom: 2px solid #fdc700;
+            transition: color 0.3s;
+        }
+        
+        .program-table a:hover {
+            color: #fdc700;
+        }
+        
+        .session-header {
+            background: #e8f4f8 !important;
+            font-weight: bold;
+            color: #003c6c;
+        }
+        
+        .break-row {
+            background: #f8f9fa !important;
+            font-style: italic;
+            color: #666;
+        }
+        
+        /* Call for Abstracts Styles */
+        .info-box {
+            background: #f2f2f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #fdc700;
+            margin: 1.5rem 0;
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+        }
+        
+        .deadline-highlight {
+            background: #fdc700;
+            color: #003c6c;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        /* Registration Styles */
+        .register-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #f2f2f2;
+            color: #003c6c;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            margin: 1rem 0;
+        }
+        
+        .register-button:hover {
+            background: #e6e6e6;
+        }
+        
+        /* Local Information Styles */
+        .local-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .info-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-top: 4px solid #003c6c;
+        }
+        
+        .info-card h4 {
+            color: #003c6c;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-card p {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+        
+        ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        footer {
+            background: #003c6c;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            nav li {
+                min-width: 100px;
+            }
+            
+            nav a {
+                padding: 1rem 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .program-table {
+                font-size: 0.9rem;
+            }
+            
+            .program-table th,
+            .program-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Formal Approaches to Slavic Linguistics 35</h1>
+        <p><b>University of California, Santa Cruz</b></p>
+        <p>May 1st – 3rd, 2026</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#" class="tab-link active" data-tab="home">Home</a></li>
+            <li><a href="#" class="tab-link" data-tab="call">Call for Abstracts</a></li>
+            <li><a href="#" class="tab-link" data-tab="program">Program</a></li>
+            <li><a href="#" class="tab-link" data-tab="registration">Registration</a></li>
+            <li><a href="#" class="tab-link" data-tab="local">Local Information</a></li>
+        </ul>
+    </nav>
+    
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active">
+        
+        <div class="container">
+            <section>
+                <p>Formal Approaches to Slavic Linguistics (FASL) 35 will be hosted by the Linguistics Department at the University of California, Santa Cruz on May 1st – 3rd, 2026. All sessions will take place in-person at UC Santa Cruz.</p>
+
+                <p>For questions, please contact the organizers at [email address TBD].</p>
+            </section>
+            
+            <section>
+                <h2>Invited Speakers</h2>
+                <div class="speakers-grid">
+                    <div class="speaker-card">
+                        <div class="speaker-photo">
+                            [Photo]
+                        </div>
+                        <h3><a href="https://www.milojedespic.com/" target="_blank">Miloje Despic</a></h3>
+                        <p class="speaker-affiliation">Cornell University</p>
+                    </div>
+                    
+                    <div class="speaker-card">
+                        <div class="speaker-photo">
+                            [Photo]
+                        </div>
+                        <h3><a href="https://stanford.edu/~gribanov/" target="_blank">Vera Gribanova</a></h3>
+                        <p class="speaker-affiliation">Stanford University</p>
+                    </div>
+                    
+                    <div class="speaker-card">
+                        <div class="speaker-photo">
+                            [Photo]
+                        </div>
+                        <h3><a href="https://websites.umass.edu/jarosz/" target="_blank">Gaja Jarosz</a></h3>
+                        <p class="speaker-affiliation">University of Massachusetts Amherst</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- CALL FOR PAPERS TAB -->
+    <div id="call" class="tab-content">
+        <div class="container">
+            <section>
+                <h2>Call for Papers</h2>
+                
+                <p>The Department of Linguistics at the University of California, Santa Cruz is pleased to announce that the 35th annual meeting of Formal Approaches to Slavic Linguistics (FASL) will be held <b>May 1st-3rd, 2026</b> at our campus in Santa Cruz, CA, USA.</p>
+
+                <p>Invited Speakers:</p>
+                <ul>
+                    <li>Miloje Despic (Cornell)</li>
+                    <li>Vera Gribanova (Stanford)</li>
+                    <li>Gaja Jarosz (UMass)</li>
+                </ul>
+
+                <p>Abstracts are invited for 20-minute talks and posters on all topics in formal Slavic linguistics, including phonetics, phonology, morphology, syntax, semantics, and pragmatics. We welcome theoretical work in any of these domains, and experimental work that speaks to linguistic theory is additionally welcome.</p>
+                
+                <h3>Instructions for Abstract Submission</h3>
+                <ul>
+                    <li>Abstracts must be in PDF format.</li>
+                    <li>Abstracts must not exceed two pages of letter-sized or A4 paper, including data and figures. References may be included on an additional page.</li>
+                    <li>Abstracts should have 1″ margins on all sides, set in a font no smaller than 11 points.</li>
+                    <li>Abstracts should have a clear title and should not identify the author(s).</li>
+                    <li>Submissions are limited to one individual and one joint abstract per author, or two joint abstracts per author.</li>
+                    <li>All submissions must indicate whether the abstract it is to be considered for a talk, poster, or both.</li>
+                </ul>
+                
+                <p>Please submit abstracts electronically using [platform TBD] at: [link TBD]. </p>
+                
+                <div class="info-box">
+                    <h3>Important Dates</h3>
+                    <ul>
+                        <li><strong>Abstract submission deadline:</strong> [date TBD] (11:59pm PST)</li>
+                        <li><strong>Notification of acceptance (estimated):</strong> [date TBD]</li>
+                        <li><strong>Conference dates:</strong> May 1st-3rd, 2026</li>
+                    </ul>
+                </div>
+
+                For all inquiries, please contact: [email TBD].
+            </section>
+        </div>
+    </div>
+    
+    <!-- PROGRAM TAB -->
+    <div id="program" class="tab-content">
+        <div class="container">
+            <section>
+                <h2>Program</h2>
+                <p><em>The program for FASL35 will be announced soon.</em></p>
+            </section>
+        </div>
+    </div>
+    
+    <!-- REGISTRATION TAB -->
+    <div id="registration" class="tab-content">
+        <div class="container">
+            <section>
+                <h2>Registration</h2>
+                <p><em>Details regarding registration for FASL35 will be announced soon.</em></p>
+                
+                <a href="#" class="register-button">Register Now (Google Form)</a>
+                
+            </section>
+        </div>
+    </div>
+    
+    <!-- LOCAL INFORMATION TAB -->
+    <div id="local" class="tab-content">
+        <div class="container">
+            <section>
+                <h2>Local Information</h2>
+                
+                <h3>Venue</h3>
+                <div class="info-box">
+                    <p><strong>[room(s) TBD]</strong><br>
+                    [building TBD]<br>
+                    University of California, Santa Cruz<br>
+                    1156 High Street, Santa Cruz, CA 95064</p>
+                </div>
+                
+                <h3>Getting to Santa Cruz</h3>
+                <p>[directions TBD].</p>
+                
+                <h3>Transportation to UCSC</h3>
+                <p>[directions TBD].</p>
+                
+                <h3>Accommodations</h3>
+                <p>[information TBD].</p>
+                
+            </section>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Department of Linguistics, University of California, Santa Cruz</p>
+        <p>For further questions, contact us at [email address TBD].</p>
+    </footer>
+    
+    <script>
+        // Tab switching functionality
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all tabs and links
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked tab and link
+                const tabId = link.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                link.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
