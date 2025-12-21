@@ -350,15 +350,27 @@
         
         li {
             margin: 0.5rem 0;
-        }
-        
-        footer {
-            background: #003c6c;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
+        }      
+  .footer-image {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0;
+    background-color: white;  /* or #f5f5f5 for light gray */
+}
+
+.footer-image img {
+    max-width: 300px;  /* Adjust size: 200px, 300px, 400px, etc. */
+    height: auto;
+}
+
+footer {
+    background: #003c6c;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 0;  /* Remove gap */
+}
+
         
         @media (max-width: 768px) {
             header h1 {
@@ -548,7 +560,10 @@
             </section>
         </div>
     </div>
-    
+
+<div class="footer-image">
+    <img src="background.jpeg" alt="UCSC Campus">
+</div>    
     <footer>
         <p>Department of Linguistics, University of California, Santa Cruz</p>
         <p>For further questions, contact us at [email address TBD].</p>
