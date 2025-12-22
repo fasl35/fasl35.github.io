@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASL35</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Formal Approaches to Slavic Linguistics 35</h1>
+        <p><b>University of California, Santa Cruz</b></p>
+        <p>May 1st&ndash;3rd, 2026</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html" class="tab-link active" data-tab="home">Home</a></li>
+            <li><a href="call-for-papers.html" class="tab-link" data-tab="call">Call for Papers</a></li>
+            <li><a href="program.html" class="tab-link" data-tab="program">Program</a></li>
+            <li><a href="registration.html" class="tab-link" data-tab="registration">Registration</a></li>
+            <li><a href="local-information.html" class="tab-link" data-tab="local">Local Information</a></li>
+        </ul>
+    </nav>
+
+    <!-- Local Information page content -->
+    <div id="local" class="tab-content">
+        <div class="container">
+            <section>
+                <h2>Local Information</h2>
+                
+                <h3>Venue</h3>
+                <div class="info-box">
+                    <p><strong>[room(s) TBD]</strong><br>
+                    [building TBD]<br>
+                    University of California, Santa Cruz<br>
+                    1156 High Street, Santa Cruz, CA 95064</p>
+                </div>
+                
+                <h3>Getting to Santa Cruz</h3>
+                <p>[directions TBD].</p>
+                
+                <h3>Transportation to UCSC</h3>
+                <p>[directions TBD].</p>
+                
+                <h3>Accommodations</h3>
+                <p>[information TBD].</p>
+                
+            </section>
+        </div>
+    </div>
+
+<div class="footer-image">
+    <img src="background.jpeg" alt="UCSC Slug">
+</div>    
+    <footer>
+        <p>Department of Linguistics, University of California, Santa Cruz</p>
+        <p>For further questions, contact us at [email address TBD].</p>
+    </footer>
+    
+    <script>
+        // Tab switching functionality
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all tabs and links
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked tab and link
+                const tabId = link.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                link.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
