@@ -15,11 +15,11 @@
     
     <nav>
         <ul>
-            <li><a href="#" class="tab-link active" data-tab="home">Home</a></li>
-            <li><a href="#" class="tab-link" data-tab="call">Call for Papers</a></li>
-            <li><a href="#" class="tab-link" data-tab="program">Program</a></li>
-            <li><a href="#" class="tab-link" data-tab="registration">Registration</a></li>
-            <li><a href="#" class="tab-link" data-tab="local">Local Information</a></li>
+            <li><a href="index.html" class="tab-link active" data-tab="home">Home</a></li>
+            <li><a href="call-for-papers.html" class="tab-link" data-tab="call">Call for Papers</a></li>
+            <li><a href="program.html" class="tab-link" data-tab="program">Program</a></li>
+            <li><a href="registration.html" class="tab-link" data-tab="registration">Registration</a></li>
+            <li><a href="local-information.html" class="tab-link" data-tab="local">Local Information</a></li>
         </ul>
     </nav>
 
@@ -65,3 +65,37 @@
             </section>
         </div>
     </div>
+
+<div class="footer-image">
+    <img src="background.jpeg" alt="UCSC Slug">
+</div>    
+    <footer>
+        <p>Department of Linguistics, University of California, Santa Cruz</p>
+        <p>For further questions, contact us at [email address TBD].</p>
+    </footer>
+    
+    <script>
+        // Tab switching functionality
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all tabs and links
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked tab and link
+                const tabId = link.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                link.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
