@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FASL35</title>
+    <title>FASL35 — Program</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .day-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .day-tab { padding: 8px 20px; border: 2px solid #003c6c; background: #fff; cursor: pointer; border-radius: 4px; font-size: 0.95rem; font-family: 'Segoe UI', sans-serif; color: #003c6c; font-weight: 500; transition: all 0.2s; }
+        .day-tab:hover { background: rgba(0,60,108,0.08); }
+        .day-tab.active { background: #003c6c; color: #fff; border-color: #003c6c; }
+        .day-panel { display: none; }
+        .day-panel.active { display: block; }
+        .session { display: grid; grid-template-columns: 110px 1fr; gap: 0 16px; padding: 14px 0; border-bottom: 1px solid #e0e0e0; align-items: baseline; }
+        .session.brk { background: #f8f9fa; padding: 8px 12px; font-style: italic; color: #666; }
+        .session.inv { background: #e8f4f8; padding: 14px 16px; border-left: 4px solid #fdc700; border-bottom: none; margin: 4px 0; }
+        .time { font-size: 0.85rem; font-weight: 600; color: #003c6c; padding-top: 2px; white-space: nowrap; }
+        .talk-title { font-size: 1rem; margin-bottom: 3px; color: #222; line-height: 1.4; }
+        .talk-authors { font-size: 0.9rem; color: #666; }
+        .brk-lbl { font-size: 0.85rem; color: #888; }
+        .inv-lbl { font-size: 0.75rem; color: #003c6c; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+        .session.inv .talk-title { font-weight: 600; color: #003c6c; }
+        .zoom-badge { display: inline-block; font-size: 0.7rem; font-weight: bold; color: #fff; background: #2d8cff; padding: 1px 7px; border-radius: 3px; margin-left: 6px; vertical-align: middle; position: relative; top: -1px; }
+        .poster-hd { margin: 24px 0 10px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: #003c6c; font-weight: 600; border-bottom: 2px solid #fdc700; padding-bottom: 6px; }
+        .poster-item { padding: 12px 0; border-bottom: 1px solid #e0e0e0; }
+        .poster-item .talk-title { font-size: 0.95rem; }
+    </style>
 </head>
 <body>
     <header>
@@ -12,33 +33,102 @@
         <p><b>University of California, Santa Cruz</b></p>
         <p>May 1st&ndash;3rd, 2026</p>
     </header>
-    
+
     <nav>
         <ul>
-            <li><a href="index.html" class="tab-link active" data-tab="home">Home</a></li>
+            <li><a href="index.html" class="tab-link" data-tab="home">Home</a></li>
             <li><a href="call-for-papers.html" class="tab-link" data-tab="call">Call for Papers</a></li>
-            <li><a href="program.html" class="tab-link" data-tab="program">Program</a></li>
+            <li><a href="program.html" class="tab-link active" data-tab="program">Program</a></li>
             <li><a href="registration.html" class="tab-link" data-tab="registration">Registration</a></li>
             <li><a href="local-information.html" class="tab-link" data-tab="local">Local Information</a></li>
         </ul>
     </nav>
 
-    <!-- Program page content -->
-        <div class="container">
-            <section>
-                <h2>Program</h2>
-                <p><em>The program for FASL35 will be announced soon.</em></p>
-            </section>
-        </div>
+    <div class="container">
+        <section>
+            <h2>Program</h2>
 
-<div class="footer-image">
-    <img src="background.jpeg" alt="UCSC Slug">
-</div>    
+            <div class="day-tabs">
+                <button class="day-tab active" onclick="showDay('fri', this)">Friday, May 1</button>
+                <button class="day-tab" onclick="showDay('sat', this)">Saturday, May 2</button>
+                <button class="day-tab" onclick="showDay('sun', this)">Sunday, May 3</button>
+            </div>
+
+            <!-- FRIDAY -->
+            <div class="day-panel active" id="day-fri">
+                <div class="session"><div class="time">9:30–10:00</div><div><div class="talk-title">Against length-determined tone assignment in Serbo-Croatian <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Marijana Marelj, Ora Matushansky</div></div></div>
+                <div class="session"><div class="time">10:00–10:30</div><div><div class="talk-title">Finiteness and clause size: The case of Bulgarian da-constructions from a formal and diachronic perspective <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Tomislav Socanac, Iliyana Krapova</div></div></div>
+                <div class="session brk"><div class="time">10:30–10:45</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">10:45–11:15</div><div><div class="talk-title">Word order-based determinacy inferences: Experimental evidence from Czech <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Veronika Je&#345;ábková, Radek &#352;imík</div></div></div>
+                <div class="session"><div class="time">11:15–11:45</div><div><div class="talk-title">Real-time processing of LBE dependencies under coordination <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Marija Bra&#353;i&#263;</div></div></div>
+                <div class="session brk"><div class="time">11:45–12:00</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">12:00–12:30</div><div><div class="talk-title">Scope of focus determines size of movement: on two derivations for Russian split nominals</div><div class="talk-authors">Daniel Shevchenko</div></div></div>
+                <div class="session"><div class="time">12:30–1:00</div><div><div class="talk-title">Topic pronouns in Czech: Argument drop in disguise</div><div class="talk-authors">Ivona Ku&#269;erová, Edgar Onea</div></div></div>
+                <div class="session brk"><div class="time">1:00–2:15</div><div><span class="brk-lbl">Lunch</span></div></div>
+                <div class="session"><div class="time">2:15–2:45</div><div><div class="talk-title">NP ellipsis with predicative long form adjectives in Russian: a response to Borik (2014)</div><div class="talk-authors">Daniar Kasenov</div></div></div>
+                <div class="session"><div class="time">2:45–3:15</div><div><div class="talk-title">Interrogative islands in Russian: for an intervention account</div><div class="talk-authors">Anastasiia Voznesenskaia</div></div></div>
+                <div class="session brk"><div class="time">3:15–3:30</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">3:30–4:00</div><div><div class="talk-title">The status of Slavic lexical prefixes in mental grammar: Evidence from priming in BCS</div><div class="talk-authors">Ma&#353;a Be&#353;lin, Predrag Kova&#269;evi&#263;, Stefan Ivanovi&#263;, Utku Turk</div></div></div>
+                <div class="session"><div class="time">4:00–4:30</div><div><div class="talk-title">Russian yers: Child language data as a window on regularity and irregularity</div><div class="talk-authors">Natalia Tyulina</div></div></div>
+                <div class="session brk"><div class="time">4:30–4:45</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session inv"><div class="time">4:45–5:45</div><div><div class="inv-lbl">Invited Talk</div><div class="talk-title">TBA</div><div class="talk-authors">Gaja Jarosz</div></div></div>
+            </div>
+
+            <!-- SATURDAY -->
+            <div class="day-panel" id="day-sat">
+                <div class="session"><div class="time">10:00–10:30</div><div><div class="talk-title">Temporality in the nominal domain: Evidence from Czech adjectives <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Kristýna &#352;vehlíková, Marcin W&#261;giel</div></div></div>
+                <div class="session"><div class="time">10:30–11:00</div><div><div class="talk-title">(Non-)veridicality and PPI-hood: The case of the Russian attitude verb polagat' <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Ekaterina Vostrikova, Hedde Zeijlstra</div></div></div>
+                <div class="session brk"><div class="time">11:00–11:15</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">11:15–11:45</div><div><div class="talk-title">Two types of unaccusatives: evidence from Slavic Degree Achievements <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Marijana Marelj, Ora Matushansky</div></div></div>
+                <div class="session"><div class="time">11:45–12:15</div><div><div class="talk-title">Theme vowels in Ukrainian inchoative deadjectival verbs <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Anastasiia Vyshnevska</div></div></div>
+                <div class="session brk"><div class="time">12:15–2:30</div><div><span class="brk-lbl">Lunch</span></div></div>
+                <div class="session"><div class="time">2:30–3:00</div><div><div class="talk-title">Degrees of Verbal Structure in Slavic Participles</div><div class="talk-authors">Alberto Frasson, Krzysztof Migdalski</div></div></div>
+                <div class="session"><div class="time">3:00–3:30</div><div><div class="talk-title">The Features of a Bishop: A New Approach to Gender in BCS</div><div class="talk-authors">Ma&#353;a Be&#353;lin, Ruth Kramer</div></div></div>
+                <div class="session brk"><div class="time">3:30–3:45</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">3:45–4:15</div><div><div class="talk-title">A Unified Modal-Temporal Analysis of Bulgarian Perfect(s)</div><div class="talk-authors">Dorota Klimek-Jankowska, Tanya Ivanova-Sullivan, Alberto Frasson</div></div></div>
+                <div class="session"><div class="time">4:15–4:45</div><div><div class="talk-title">Existential wh-words are still a question in Russian</div><div class="talk-authors">Vlad Orlov</div></div></div>
+                <div class="session brk"><div class="time">4:45–5:00</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session inv"><div class="time">5:00–6:00</div><div><div class="inv-lbl">Invited Talk</div><div class="talk-title">TBA</div><div class="talk-authors">Vera Gribanova</div></div></div>
+            </div>
+
+            <!-- SUNDAY -->
+            <div class="day-panel" id="day-sun">
+                <div class="session"><div class="time">9:30–11:00</div><div><div class="talk-title">Poster session</div></div></div>
+                <div class="session inv"><div class="time">11:00–12:00</div><div><div class="inv-lbl">Invited Talk</div><div class="talk-title">TBA</div><div class="talk-authors">Miloje Despi&#263;</div></div></div>
+                <div class="session brk"><div class="time">12:00–12:15</div><div><span class="brk-lbl">Break</span></div></div>
+                <div class="session"><div class="time">12:15–12:45</div><div><div class="talk-title">Eye of newt and toe of frog: Russian word order in between factors</div><div class="talk-authors">Artem Novozhilov</div></div></div>
+                <div class="session"><div class="time">12:45–1:15</div><div><div class="talk-title">One order, different objects: on the derivations and interpretations of SOV in East Slavic</div><div class="talk-authors">Svitlana Antonyuk, Yanis da Cunha, Daniel Shevchenko</div></div></div>
+
+                <div class="poster-hd">Posters</div>
+                <div class="poster-item"><div class="talk-title">Order, case, and person: revisiting the bidirectional PCC in Slovenian</div><div class="talk-authors">Maru&#353;a Bre&#382;nik Dornik</div></div>
+                <div class="poster-item"><div class="talk-title">Object order in Russian: An experimental comparison across structures</div><div class="talk-authors">Haneul Choi, Tania Ionin</div></div>
+                <div class="poster-item"><div class="talk-title">A dynamic pragmatic constraint on bare NPs in Russian</div><div class="talk-authors">Fedor Golosov</div></div>
+                <div class="poster-item"><div class="talk-title">OVS order in Russian: a view from variable argument linking</div><div class="talk-authors">Daniar Kasenov, Ivan Kalyakin, Maria Berkovich</div></div>
+                <div class="poster-item"><div class="talk-title">Differences between the features: an experimental study on Russian <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Daria Antropova, Natalia Slioussar</div></div>
+                <div class="poster-item"><div class="talk-title">Small Clauses are Uniform: Evidence from Russian Copular Constructions <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Grigory Sibilev</div></div>
+                <div class="poster-item"><div class="talk-title">Paradigm Analogy and the Illusion of Phonological Regularity in Serbo-Croatian Borrowings <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Szil&#225;rd Tóth</div></div>
+                <div class="poster-item"><div class="talk-title">Lexicalisation and markedness: Synthetic versus analytic comparatives in Ukrainian <span class="zoom-badge">Zoom</span></div><div class="talk-authors">Anastasiia Vyshnevska, Jeroen van Craenenbroeck, Stef Grondelaers</div></div>
+            </div>
+
+        </section>
+    </div>
+
+    <div class="footer-image">
+        <img src="background.jpeg" alt="UCSC Slug">
+    </div>
+
     <footer>
         <p>Department of Linguistics, University of California, Santa Cruz</p>
         <p>For further questions, contact us at <a href="mailto:fasl35@ucsc.edu" style="color:#f2f4f8; text-decoration:underline;">fasl35@ucsc.edu</a>.</p>
     </footer>
-    
 
+    <script>
+        function showDay(day, btn) {
+            document.querySelectorAll('.day-panel').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('day-' + day).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
 </body>
 </html>
